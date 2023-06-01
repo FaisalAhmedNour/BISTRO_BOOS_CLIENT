@@ -3,6 +3,7 @@ import CategoryCard from "./CategoryCard";
 
 const CategoryCards = ({category}) => {
     const [menu] = useMenu();
+    // console.log(menu)
     const items = menu.filter(item => item.category.toLowerCase() === category.toLowerCase())
     console.log(items)
 

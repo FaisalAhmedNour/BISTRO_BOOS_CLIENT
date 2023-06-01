@@ -4,13 +4,22 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { useState } from "react";
 import CategoryCards from "../../Shared/CategoryCards/CategoryCards";
+import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Orders = () => {
 
-    const [tabIndex, setTabIndex] = useState(0);
+    const categorys = ["salads", "pizzas", "soups", "desserts", "drinks"];
+    const category = useParams();
+    const { title } = category;
+    const initialIndex = categorys.indexOf(title); 
+    const [tabIndex, setTabIndex] = useState(initialIndex);
 
     return (
         <div>
+            <Helmet>
+                <title>Order Food | Home</title>
+            </Helmet>
             <Cover
                 img={bannerImg}
                 heading={"OUR SHOP"}

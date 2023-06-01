@@ -5,7 +5,7 @@ const CategoryCard = ({item}) => {
     const { image, name, recipe, price } = item;
     return (
         <div className="card w-96 bg-base-100 shadow-xl mx-auto relative">
-            <figure className="h-[300px]"><img className="w-full" src={image} alt="Caeser Salad" /></figure>
+            <figure className="h-[300px]"><img className="w-full rounded-t-xl" src={image} alt="Caeser Salad" /></figure>
             <span className="absolute top-10 right-7 bg-[#111827] font-[600] text-white text-base px-4 py-2 rounded-md">${price}</span>
             <div className="card-body text-center">
                 <h2 className="mx-auto font-semibold text-xl">{name}</h2>

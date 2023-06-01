@@ -3,6 +3,7 @@ import Cover from "../Cover/Cover";
 import MenuBtn from "../MenuBtn/MenuBtn";
 
 const MenuSection = ({img, title, subTitle, category}) => {
+    // console.log(title);
     return (
         <div>
             <Cover
@@ -16,6 +17,7 @@ const MenuSection = ({img, title, subTitle, category}) => {
             ></PopularMenu>
             <MenuBtn
                 text={"ORDER YOUR FAVOURITE FOOD"}
+                title={title}
             ></MenuBtn>
         </div>
     );

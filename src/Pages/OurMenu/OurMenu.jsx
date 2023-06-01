@@ -28,32 +28,32 @@ const OurMenu = () => {
                 subHeading={"---Don't miss---"}
             ></SectionTitle>
             <PopularMenu
-                category={"popular"}
+                category={"offered"}
             ></PopularMenu>
             <MenuBtn 
                 text={"ORDER YOUR FAVOURITE FOOD"}
             ></MenuBtn>
             <MenuSection
                 img={dessertImg}
-                title={"DESSERTS"}
+                title={"desserts"}
                 subTitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
                 category={"dessert"}
             ></MenuSection>
             <MenuSection
                 img={pizzaImg}
-                title={"PIZZAS"}
+                title={"pizzas"}
                 subTitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
                 category={"pizza"}
             ></MenuSection>
             <MenuSection
                 img={saladImg}
-                title={"SALADS"}
+                title={"salads"}
                 subTitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
                 category={"salad"}
             ></MenuSection>
             <MenuSection
                 img={soupImg}
-                title={"SOUPS"}
+                title={"soups"}
                 subTitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
                 category={"soup"}
             ></MenuSection>

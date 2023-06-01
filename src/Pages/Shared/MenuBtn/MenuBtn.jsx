@@ -1,7 +1,11 @@
+import { Link } from "react-router-dom";
 
-const MenuBtn = ({ text }) => {
+const MenuBtn = ({ text, title }) => {
+    console.log(title)
     return (
-        <button className="btn uppercase mt-5 mb-10 border-0 border-b-4 bg-white text-black flex mx-auto">{text}</button>
+        <Link to={`/orders/${title}`} className="uppercase mt-5 mb-10 flex justify-center">
+            <span className="btn border-0 border-b-4 bg-white text-black ">{text}</span>
+        </Link>
     );
 };
 

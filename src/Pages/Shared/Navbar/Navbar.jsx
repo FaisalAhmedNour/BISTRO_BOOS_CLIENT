@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to='/our-menu'>Our menu</Link>
         </li>
         <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
-            <Link to='orders'>
+            <Link to='orders/salads'>
                 Orders
                 <img className="w-[60px]" src={cartIcon} />
             </Link>
