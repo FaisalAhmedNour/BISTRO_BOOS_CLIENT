@@ -18,7 +18,7 @@ const Orders = () => {
     return (
         <div>
             <Helmet>
-                <title>Order Food | Home</title>
+                <title>Bistro | Order Food</title>
             </Helmet>
             <Cover
                 img={bannerImg}

@@ -1,17 +1,26 @@
 import { Link } from "react-router-dom";
 import cartIcon from '../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .then(error => {
+                console.log(error)
+            })
+    }
 
     const listItems = <>
         <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
             <Link to='/'>Home</Link>
         </li>
         <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
-            <a>Contact us</a>
-        </li>
-        <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
-            <a>DashBoard</a>
+            <Link to='/contact-us'>Contact us</Link>
         </li>
         <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
             <Link to='/our-menu'>Our menu</Link>
@@ -22,9 +31,15 @@ const Navbar = () => {
                 <img className="w-[60px]" src={cartIcon} />
             </Link>
         </li>
-        <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
-            <a>sign out</a>
-        </li>
+        {
+            user ?
+                <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]" onClick={handleLogOut} >
+                    <a>sign out</a>
+                </li> :
+                <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
+                    <Link to='/login'>Log in</Link>
+                </li>
+        }
     </>
 
     return (
@@ -49,13 +64,16 @@ const Navbar = () => {
                         {listItems}
                     </ul>
                 </div>
-                <div className=" mr-5">
-                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-                        </div>
-                    </label>
-                </div>
+                {
+                    user &&
+                    <div className=" mr-5">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                            </div>
+                        </label>
+                    </div>
+                }
             </div>
         </>
     );
