@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import cartIcon from '../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import { FaShoppingCart } from 'react-icons/fa';
+import useCart from "../../../Hooks/useCart";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
-
+    const [cart] = useCart();
+    // console.log(user?.displayName);
     const handleLogOut = () => {
         logOut()
             .then(() => { })
@@ -28,7 +30,15 @@ const Navbar = () => {
         <li className="uppercase font-semibold text-xl hover:text-[#EEFF25]">
             <Link to='orders/salads'>
                 Orders
-                <img className="w-[60px]" src={cartIcon} />
+                {/* <img className="w-[60px]" src={cartIcon} /> */}
+            </Link>
+        </li>
+        <li className="uppercase font-semibold text-3xl hover:text-[#EEFF25]">
+            <Link to='dashboard/my-cart'>
+                <button className="flex relative">
+                    <FaShoppingCart></FaShoppingCart>
+                    <div className="badge badge-primary  border-none text-[#f1e03e] font-bold absolute left-5 bottom-4 mt-1">{cart?.length || 0}</div>
+                </button>
             </Link>
         </li>
         {
@@ -66,10 +76,10 @@ const Navbar = () => {
                 </div>
                 {
                     user &&
-                    <div className=" mr-5">
+                    <div className=" mr-5 tooltip tooltip-left" data-tip={user?.displayName ? user.displayName : ''}>
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                                <img src={user.photoURL ? user.photoURL : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} />
                             </div>
                         </label>
                     </div>

@@ -6,20 +6,28 @@ import { Helmet } from 'react-helmet-async';
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
+import { FaGoogle } from 'react-icons/fa';
 
 const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUserWithPass, updateUser } = useContext(AuthContext);
+    const { createUserWithPass, updateUser, googleLogin } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
-    const onSubmit = data => {
-        // console.log(data.name, data.photo)
-        createUserWithPass(data.email, data.password)
-            .then(() => {
-                updateUser(data.name, data.photo)
-                    .then(() => {
-                        reset();
+    const handleGoogleLogIn = () => {
+        googleLogin()
+        .then((data) => {
+            const savedUser = { name: data.user.displayName, email: data.user.email }
+            console.log(savedUser)
+            fetch('http://localhost:5000/users', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(savedUser)
+            })
+                .then(res => res.json())
+                .then(() => {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -28,6 +36,38 @@ const SignUp = () => {
                             timer: 1500
                         })
                         navigate('/');
+                })
+        })
+    }
+
+    const onSubmit = data => {
+        // console.log(data.name, data.photo)
+        createUserWithPass(data.email, data.password)
+            .then(() => {
+                updateUser(data.name, data.photo)
+                    .then(() => {
+                        const savedUser = {name: data.name, email: data.email}
+                        fetch('http://localhost:5000/users', {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(savedUser)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId){
+                                reset();
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Successfully Signed in...',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                navigate('/');
+                            }
+                        })
                     })
                     .catch((error) => {
                         console.log(error);
@@ -52,7 +92,7 @@ const SignUp = () => {
             <Helmet>
                 <title>Bistro | Sign Up</title>
             </Helmet>
-            <div className={`hero-content border w-full h-[80%] shadow-2xl flex-col lg:flex-row-reverse`}>
+            <div className={`hero-content border w-full shadow-2xl flex-col lg:flex-row-reverse`}>
                 <div className="text-center lg:text-left">
                     <img src={bannerImg} alt="" />
                 </div>
@@ -127,7 +167,12 @@ const SignUp = () => {
                                 <h3 className='font-[700] ms-2'>Log in</h3>
                             </Link>
                         </p>
-                        <p className='font-[500] text-xl mt-3'>Or sign in with</p>
+                        <div className="divider font-semibold">Or sign in with</div>
+                        <button 
+                            onClick={handleGoogleLogIn}
+                        className="btn btn-circle">
+                            <FaGoogle></FaGoogle>
+                        </button>
                     </div>
                 </div>
             </div>

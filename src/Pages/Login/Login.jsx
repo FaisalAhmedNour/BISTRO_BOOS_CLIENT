@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
 const Login = () => {
     const [ifCaptcha, setIfCaptcha] = useState(true)
-    const { signInUserWithPass } = useContext(AuthContext);
+    const { signInUserWithPass, googleLogin } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation()
@@ -30,7 +30,7 @@ const Login = () => {
             .then(() => {
                 // console.log(result.user)
                 Swal.fire({
-                    position: 'middle',
+                    position: 'center',
                     icon: 'success',
                     title: 'Successfully loged in...',
                     showConfirmButton: false,
@@ -40,9 +40,34 @@ const Login = () => {
             })
             .catch(error => {
                 const errorMessage = error.message;
-                // console.log(errorMessage)
+                console.log(errorMessage)
                 Swal.fire({
-                    position: 'middle',
+                    position: 'center',
+                    icon: 'error',
+                    title: { errorMessage },
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+    }
+
+    const handleGoogleLogIn = () => {
+        googleLogin()
+            .then(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Successfully loged in...',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                Swal.fire({
+                    position: 'center',
                     icon: 'error',
                     title: { errorMessage },
                     showConfirmButton: false,
@@ -70,7 +95,7 @@ const Login = () => {
             <Helmet>
                 <title>Bistro | Login</title>
             </Helmet>
-            <div className={`hero-content border w-full h-[80%] shadow-2xl flex-col lg:flex-row`}>
+            <div className={`hero-content border w-full shadow-2xl flex-col lg:flex-row`}>
                 <div className="text-center lg:text-left">
                     <img src={bannerImg} alt="" />
                 </div>
@@ -121,7 +146,8 @@ const Login = () => {
                                 className={`px-8 py-4 w-full text-white ${ifCaptcha ? 'bg-[#D9B47C]' : 'bg-[#af905e]'} rounded-md font-[700] text-xl  focus:outline-none`}
                                 type="submit"
                                 value="Log in"
-                                disabled={ifCaptcha}
+                                // TO DO: Make disable
+                                disabled={false}
                             />
                         </div>
                     </form>
@@ -133,6 +159,9 @@ const Login = () => {
                             </Link>
                         </p>
                         <p className='font-[500] text-xl mt-3'>Or sign in with</p>
+                        <p onClick={handleGoogleLogIn}>
+                            <span className='text-2xl font-serif rounded-3xl bg-slate-400 px-5 py-1'>Sign in With Google</span>
+                        </p>
                     </div>
                 </div>
             </div>
